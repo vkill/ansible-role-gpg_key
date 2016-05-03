@@ -1,0 +1,9 @@
+---
+
+- name: "Ensure {{ gpg_key_basedir }} config directory exists with right permissions"
+  file:
+    dest: "~/{{ gpg_key_basedir }}"
+    state: directory
+    mode: 0700
+  become: yes
+  become_user: "{{ gpg_key_user }}"

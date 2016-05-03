@@ -1,0 +1,16 @@
+---
+
+# Include OS-specific installation tasks.
+- include: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: common.yml
+
+- include: gen.yml
+  when: gpg_key_gen_enable
+
+- include: import.yml
+  when: gpg_key_import_enable

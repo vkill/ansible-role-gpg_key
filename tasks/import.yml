@@ -1,0 +1,30 @@
+---
+
+- name: "Ensure {{ gpg_key_basedir }}/tmp directory exists with right permissions"
+  file:
+    dest: "~/{{ gpg_key_basedir }}/tmp"
+    state: directory
+    mode: 0700
+  become: yes
+  become_user: "{{ gpg_key_user }}"
+
+- name: Copy local public key to remote
+  copy:
+    dest: "~/{{ gpg_key_basedir }}/tmp/public_key"
+    src: "{{ gpg_key_import_public_key_file }}"
+  become: yes
+  become_user: "{{ gpg_key_user }}"
+
+- name: Import specified public key
+  command: "gpg --import '{{ gpg_key_basedir }}/tmp/public_key'"
+  args:
+    chdir: "~"
+  become: yes
+  become_user: "{{ gpg_key_user }}"
+
+- name: Shred tmp file
+  command: "shred -u -z '{{ gpg_key_basedir }}/tmp/public_key'"
+  args:
+    chdir: "~"
+  become: yes
+  become_user: "{{ gpg_key_user }}"

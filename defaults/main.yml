@@ -1,0 +1,37 @@
+---
+
+gpg_key_user: "{{ ansible_ssh_user }}"
+
+gpg_key_basedir: ".gnupg"
+
+gpg_key_gen_enable: true
+
+gpg_key_gen_user_name: "{{ gpg_key_user }}"
+gpg_key_gen_user_email: "{{ ansible_hostname }}-{{ gpg_key_user }}@example.com"
+gpg_key_gen_type: 1
+gpg_key_gen_length: 2048
+gpg_key_gen_expire_date: 0
+gpg_key_gen_passphrase: "{{ lookup('password', '/tmp/passwordfile') }}"
+
+gpg_key_gen_uid: "{{ gpg_key_gen_user_name }} <{{ gpg_key_gen_user_email }}>"
+
+gpg_key_gen_path: "{{ gpg_key_gen_uid | hash('md5') }}"
+
+gpg_key_gen_files:
+  private: "key.priv"
+  public: "key.pub"
+  public_asc: "key.pub.asc"
+  fingerprint: "key.fingerprint"
+  uid: "key.uid"
+  public_id: "key.pub_id"
+  private_id: "key.priv_id"
+
+gpg_key_gen_fetch_dest_basedir: "backup"
+gpg_key_gen_fetch_flat: "yes"
+gpg_key_gen_fetch_files: []
+
+
+gpg_key_import_enable: false
+gpg_key_import_public_key_file: ''
+
+gpg_key_install_haveged: true
