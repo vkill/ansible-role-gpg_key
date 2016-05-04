@@ -6,7 +6,9 @@ Subkey-Length: {{ gpg_key_gen_length }}
 Name-Real: {{ gpg_key_gen_user_name }}
 Name-Email: {{ gpg_key_gen_user_email }}
 Expire-Date: {{ gpg_key_gen_expire_date }}
+{% if gpg_key_gen_passphrase_enable %}
 Passphrase: {{ gpg_key_gen_passphrase }}
+{% endif %}
 %pubring {{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public }}
 %secring {{ gpg_key_gen_path }}/{{ gpg_key_gen_files.private }}
 %commit

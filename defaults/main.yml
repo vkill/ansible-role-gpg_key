@@ -12,6 +12,7 @@ gpg_key_gen_type: 1
 gpg_key_gen_length: 2048
 gpg_key_gen_expire_date: 0
 gpg_key_gen_passphrase: "{{ lookup('password', '/tmp/passwordfile') }}"
+gpg_key_gen_passphrase_enable: false
 
 gpg_key_gen_uid: "{{ gpg_key_gen_user_name }} <{{ gpg_key_gen_user_email }}>"
 

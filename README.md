@@ -1,14 +1,14 @@
-GPG Key
+Ansible Role - GPG Key
 =========
 
-GPG Key.
+[![Build Status](https://travis-ci.org/vkill/ansible-role-gpg_key.svg?branch=master)](https://travis-ci.org/vkill/ansible-role-gpg_key)
+
+Generate or import GPG Key on Linux.
 
 Requirements
 ------------
 
-Tested on:
-
-* Ubuntu trusty
+None.
 
 Role Variables
 --------------
@@ -32,9 +32,7 @@ Example Playbook
 License
 -------
 
-BSD
-
-MIT
+MIT / BSD
 
 Author Information
 ------------------
