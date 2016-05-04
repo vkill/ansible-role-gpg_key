@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - vkill.gpg_key
+    - ansible-role-gpg_key
