@@ -1,9 +1,34 @@
 ---
-
 - name: "Ensure {{ gpg_key_basedir }} config directory exists with right permissions"
   file:
     dest: "~/{{ gpg_key_basedir }}"
     state: directory
     mode: 0700
+  become: yes
+  become_user: "{{ gpg_key_user }}"
+
+- name: Set gpg config options.
+  lineinfile:
+    dest: ~/.gnupg/gpg.conf
+    line: "{{ item.line }}"
+    regexp: "{{ item.regexp }}"
+    create: yes
+  with_items:
+    - line: "use-agent"
+      regexp: "^use-agent"
+    - line: "pinentry-mode loopback"
+      regexp: "^pinentry-mode"
+  become: yes
+  become_user: "{{ gpg_key_user }}"
+
+- name: Set gpg-agent config options.
+  lineinfile:
+    dest: ~/.gnupg/gpg-agent.conf
+    line: "{{ item.line }}"
+    regexp: "{{ item.regexp }}"
+    create: yes
+  with_items:
+    - line: "allow-loopback-pinentry"
+      regexp: "^allow-loopback-pinentry"
   become: yes
   become_user: "{{ gpg_key_user }}"
