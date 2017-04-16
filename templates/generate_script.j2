@@ -1,3 +1,6 @@
+#
+# Ref https://www.gnupg.org/documentation/manuals/gnupg-2.0/Unattended-GPG-key-generation.html
+#
 %echo Generating a basic OpenPGP key
 Key-Type: {{ gpg_key_gen_type }}
 Key-Length: {{ gpg_key_gen_length }}
@@ -8,6 +11,8 @@ Name-Email: {{ gpg_key_gen_user_email }}
 Expire-Date: {{ gpg_key_gen_expire_date }}
 {% if gpg_key_gen_passphrase_enable %}
 Passphrase: {{ gpg_key_gen_passphrase }}
+{% else %}
+Passphrase: ''
 {% endif %}
 %pubring {{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public }}
 %commit
