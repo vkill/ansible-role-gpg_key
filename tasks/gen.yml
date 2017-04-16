@@ -43,7 +43,7 @@
   when: gpg_keys.stdout == ""
 
 - name: Import generated secret key
-  command: "gpg2 --import '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public }}' '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.private }}'"
+  command: "gpg2 --import '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public }}'"
   args:
     chdir: "~"
   become: yes

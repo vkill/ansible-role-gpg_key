@@ -19,7 +19,6 @@ gpg_key_gen_uid: "{{ gpg_key_gen_user_name }} <{{ gpg_key_gen_user_email }}>"
 gpg_key_gen_path: "{{ gpg_key_gen_uid | hash('md5') }}"
 
 gpg_key_gen_files:
-  private: "key.priv"
   public: "key.pub"
   public_asc: "key.pub.asc"
   fingerprint: "key.fingerprint"

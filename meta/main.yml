@@ -1,8 +1,4 @@
 ---
-dependencies:
-  - role: shrikeh.haveged
-    when: gpg_key_install_haveged
-
 galaxy_info:
   author: vkill
   description: GPG Key

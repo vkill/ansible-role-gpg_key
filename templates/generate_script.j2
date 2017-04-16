@@ -10,6 +10,5 @@ Expire-Date: {{ gpg_key_gen_expire_date }}
 Passphrase: {{ gpg_key_gen_passphrase }}
 {% endif %}
 %pubring {{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public }}
-%secring {{ gpg_key_gen_path }}/{{ gpg_key_gen_files.private }}
 %commit
 %echo done
