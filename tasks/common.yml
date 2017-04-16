@@ -7,9 +7,9 @@
   become: yes
   become_user: "{{ gpg_key_user }}"
 
-- name: Set gpg config options.
+- name: Set gpg pinentry mode to loopback in config file.
   lineinfile:
-    dest: ~/.gnupg/gpg.conf
+    dest: "~/{{ gpg_key_basedir }}/gpg.conf"
     line: "{{ item.line }}"
     regexp: "{{ item.regexp }}"
     create: yes
@@ -21,9 +21,9 @@
   become: yes
   become_user: "{{ gpg_key_user }}"
 
-- name: Set gpg-agent config options.
+- name: Set gpg-agent config file to allow loopback pinentry.
   lineinfile:
-    dest: ~/.gnupg/gpg-agent.conf
+    dest: "~/{{ gpg_key_basedir }}/gpg-agent.conf"
     line: "{{ item.line }}"
     regexp: "{{ item.regexp }}"
     create: yes
