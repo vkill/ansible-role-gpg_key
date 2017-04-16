@@ -16,7 +16,7 @@
   become_user: "{{ gpg_key_user }}"
 
 - name: Import specified public key
-  command: "gpg --import '{{ gpg_key_basedir }}/tmp/public_key'"
+  command: "gpg2 --import '{{ gpg_key_basedir }}/tmp/public_key'"
   args:
     chdir: "~"
   become: yes

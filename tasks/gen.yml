@@ -10,7 +10,7 @@
   become_user: "{{ gpg_key_user }}"
 
 - name: Check existing secret key
-  shell: "gpg --list-secret-keys | grep '{{ gpg_key_gen_uid }}'"
+  shell: "gpg2 --list-secret-keys | grep '{{ gpg_key_gen_uid }}'"
   changed_when: false
   ignore_errors: true
   register: gpg_keys
@@ -27,7 +27,7 @@
   when: gpg_keys.stdout == ""
 
 - name: Generate new secret key
-  command: "gpg --batch --gen-key ~/{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/generate_script"
+  command: "gpg2 --batch --gen-key ~/{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/generate_script"
   args:
     chdir: "~/{{ gpg_key_basedir }}"
   become: yes
@@ -43,7 +43,7 @@
   when: gpg_keys.stdout == ""
 
 - name: Import generated secret key
-  command: "gpg --import '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public }}' '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.private }}'"
+  command: "gpg2 --import '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public }}' '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.private }}'"
   args:
     chdir: "~"
   become: yes
@@ -51,7 +51,7 @@
   when: gpg_keys.stdout == ""
 
 - name: Generate secret key fingerprint file
-  shell: "gpg --fingerprint '{{ gpg_key_gen_uid }}' | awk -F= '/Key fingerprint/ { gsub(/ /,\"\", $2); print $2 }' > '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.fingerprint }}'"
+  shell: "gpg2 --fingerprint '{{ gpg_key_gen_uid }}' | awk -F= '/Key fingerprint/ { gsub(/ /,\"\", $2); print $2 }' > '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.fingerprint }}'"
   args:
     chdir: "~"
   changed_when: false
@@ -59,7 +59,7 @@
   become_user: "{{ gpg_key_user }}"
 
 - name: Generate secret key public ASCII file
-  shell: "gpg --armor --export '{{ gpg_key_gen_uid }}' > '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public_asc }}'"
+  shell: "gpg2 --armor --export '{{ gpg_key_gen_uid }}' > '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public_asc }}'"
   args:
     chdir: "~"
   changed_when: false
@@ -75,7 +75,7 @@
   become_user: "{{ gpg_key_user }}"
 
 - name: Generate secret key public id file
-  shell: "gpg --list-keys '{{ gpg_key_gen_uid }}' | sed -n '/^pub/p' | awk -F ' ' '{print $2}' | awk -F '/' '{print $2}' > '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public_id }}'"
+  shell: "gpg2 --list-keys '{{ gpg_key_gen_uid }}' | sed -n '/^pub/p' | awk -F ' ' '{print $2}' | awk -F '/' '{print $2}' > '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.public_id }}'"
   args:
     chdir: "~"
   changed_when: false
@@ -83,7 +83,7 @@
   become_user: "{{ gpg_key_user }}"
 
 - name: Generate secret key private id file
-  shell: "gpg --list-secret-keys '{{ gpg_key_gen_uid }}' | sed -n '/^sec/p' | awk -F ' ' '{print $2}' | awk -F '/' '{print $2}' > '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.private_id }}'"
+  shell: "gpg2 --list-secret-keys '{{ gpg_key_gen_uid }}' | sed -n '/^sec/p' | awk -F ' ' '{print $2}' | awk -F '/' '{print $2}' > '{{ gpg_key_basedir }}/{{ gpg_key_gen_path }}/{{ gpg_key_gen_files.private_id }}'"
   args:
     chdir: "~"
   changed_when: false
